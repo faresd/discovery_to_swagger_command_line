@@ -27,7 +27,7 @@ FS.readdir(relativeBasePath, function(err, files) {
             else {
                 if(!converted) console.log("The conversion of file : " + file + " has failed check if it is not empty!")
                 var newFileName = 'swagger_from_' + file,
-                    absoluteFileName = path.join(relativetargetPath, newFileName).replace('.discovey', '.json');
+                    absoluteFileName = path.join(relativetargetPath, newFileName).replace('.discovery', '.json');
                 FS.writeFile(absoluteFileName, converted.stringify(), function(err){
                     if (err) {
                         console.error(err)
