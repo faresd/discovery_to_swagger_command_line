@@ -7,4 +7,4 @@
     npm install
     
 ### Usage
-    node app.js --from {Full path}/discovery_to_swagger_command_line/discovery/ --to {Full path}/discovery_to_swagger_command_line/generated_swagger/
+    node app.js --from ./discovery/ --to ./generated_swagger/

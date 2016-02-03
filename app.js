@@ -1,28 +1,33 @@
 // set variables for environment
-var path = require('path');
-var Converter = require('api-spec-converter');
-var FS = require('fs');
-var clipp = require('clipp').parse();
-var params = clipp.params
+var path = require('path'),
+    Converter = require('api-spec-converter'),
+    FS = require('fs'),
+    clipp = require('clipp').parse(),
+    params = clipp.params;
 
-var basePath = params.from? params.from : "/Volumes/repos/Projects/discovery_to_swagger_command_line/discovery/";
-var targetPath = params.to? params.to : "/Volumes/repos/Projects/discovery_to_swagger_command_line/generated_swagger/";
-FS.readdir(basePath, function(err, files) {
+
+var basePath = params.from? params.from : "../discovery_to_swagger_command_line/discovery",
+    relativeBasePath = path.resolve(basePath) + '/';
+var targetPath = params.to? params.to : "../discovery_to_swagger_command_line/generated_swagger",
+    relativetargetPath = path.resolve(targetPath) + '/';
+
+FS.readdir(relativeBasePath, function(err, files) {
     if (err) console.error(err)
     files.forEach(function(file) {
         Converter.convert({
             from: 'google',
             to: 'swagger_2',
-            source: basePath + file,
+            source: relativeBasePath + file,
         }, function(err, converted) {
             if (err) console.error(err)
             else {
                 if(!converted) console.log("The conversion of file : " + file + " has failed check if it is not empty!")
-                var fileName = targetPath + 'swagger_from_' + file;
-                FS.writeFile(fileName, converted.stringify(), function(err){
+                var newFileName = 'swagger_from_' + file,
+                    absoluteFileName = path.join(relativetargetPath, newFileName);
+                FS.writeFile(absoluteFileName, converted.stringify(), function(err){
                     if (err) {
                         console.error(err)
-                    } else console.log("Done : swagger file " + fileName + " was created successfully!");
+                    } else console.log("Done : swagger file " + absoluteFileName + " was created successfully!");
                 });
 
             }
