@@ -7,23 +7,26 @@ var path = require('path'),
 
 
 var basePath = params.from? params.from : "../discovery_to_swagger_command_line/discovery",
-    relativeBasePath = path.resolve(basePath) + '/';
+    relativeBasePath = path.resolve(basePath);
 var targetPath = params.to? params.to : "../discovery_to_swagger_command_line/generated_swagger",
-    relativetargetPath = path.resolve(targetPath) + '/';
+    relativeTargetPath = path.resolve(targetPath);
 
 FS.readdir(relativeBasePath, function(err, files) {
     if (err) console.error(err)
-    files.forEach(function(file) {
+    files.filter(function(file) {
+        var fileExtention = path.extname(file);
+            return fileExtention == ".discovery";
+    }).forEach(function(file) {
         Converter.convert({
             from: 'google',
             to: 'swagger_2',
-            source: relativeBasePath + file,
+            source: path.join(relativeBasePath, file)
         }, function(err, converted) {
             if (err) console.error(err)
             else {
                 if(!converted) console.log("The conversion of file : " + file + " has failed check if it is not empty!")
                 var newFileName = 'swagger_from_' + file,
-                    absoluteFileName = path.join(relativetargetPath, newFileName);
+                    absoluteFileName = path.join(relativeTargetPath, newFileName);
                 FS.writeFile(absoluteFileName, converted.stringify(), function(err){
                     if (err) {
                         console.error(err)
