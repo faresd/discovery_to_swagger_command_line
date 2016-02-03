@@ -13,7 +13,11 @@ var targetPath = params.to? params.to : "../discovery_to_swagger_command_line/ge
 
 FS.readdir(relativeBasePath, function(err, files) {
     if (err) console.error(err)
-    files.forEach(function(file) {
+    files.filter(function(file) {
+        var fileExtention = path.extname(file);
+        var discoveryType = file.lastIndexOf("rest")
+        return fileExtention == ".discovery" && discoveryType > 0;
+    }).forEach(function(file) {
         Converter.convert({
             from: 'google',
             to: 'swagger_2',
@@ -23,7 +27,7 @@ FS.readdir(relativeBasePath, function(err, files) {
             else {
                 if(!converted) console.log("The conversion of file : " + file + " has failed check if it is not empty!")
                 var newFileName = 'swagger_from_' + file,
-                    absoluteFileName = path.join(relativetargetPath, newFileName);
+                    absoluteFileName = path.join(relativetargetPath, newFileName).replace('.discovey', '.json');
                 FS.writeFile(absoluteFileName, converted.stringify(), function(err){
                     if (err) {
                         console.error(err)
