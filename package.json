@@ -1,0 +1,27 @@
+{
+  "name": "discovery_to_swagger_command_line",
+  "version": "1.0.0",
+  "description": "convert google discovery into swagger.json",
+  "main": "index.js",
+  "scripts": {
+    "test": "testapp"
+  },
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:faresd/discovery_to_swagger_command_line.git"
+  },
+  "keywords": [
+    "discovery",
+    "swagger"
+  ],
+  "author": "fares droubi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/faresd/discovery_to_swagger_command_line/issues"
+  },
+  "homepage": "https://github.com/faresd/discovery_to_swagger_command_line#readme",
+  "dependencies": {
+    "api-spec-converter": "^1.7.0"
+  }
+}
