@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/faresd/discovery_to_swagger_command_line#readme",
   "dependencies": {
-    "api-spec-converter": "^1.7.0"
+    "api-spec-converter": "^1.7.0",
+    "clipp": "git://github.com/hutdev/clipp.git#66e3dfe43b09b8ce241b05bccf679bea1a55c4f8"
   }
 }
